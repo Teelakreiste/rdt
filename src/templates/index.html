@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Registro de Trabajadores y Labores</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Registro de Trabajadores y Labores</h1>
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{{ url_for('register_trabajador') }}" class="btn btn-primary mr-2">Registrar Trabajador</a>
+            <a href="{{ url_for('register_labor') }}" class="btn btn-secondary mr-2">Registrar Labor</a>
+            <a href="{{ url_for('register_trabajador_labor') }}" class="btn btn-success">Registrar Trabajador-Labor</a>
+        </div>
+    </div>
+</body>
+</html>
