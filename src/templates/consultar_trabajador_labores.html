@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Consultar Trabajador-Labor</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Consultar Trabajador-Labor</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha">
+            </div>
+            <div class="form-group">
+                <label for="id_trabajador">ID Trabajador:</label>
+                <input type="text" class="form-control" id="id_trabajador" name="id_trabajador">
+            </div>
+            <div class="form-group">
+                <label for="id_labor">ID Labor:</label>
+                <input type="text" class="form-control" id="id_labor" name="id_labor">
+            </div>
+            <button type="submit" class="btn btn-primary">Consultar</button>
+        </form>
+
+        {% if registros %}
+        <h2 class="mt-5">Resultados de la Consulta</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Finca</th>
+                    <th>Lote</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] }}</td>
+                    <td>{{ registro[3] }}</td>
+                    <td>{{ registro[4] }}</td>
+                    <td>{{ registro[5] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

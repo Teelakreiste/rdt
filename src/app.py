@@ -97,5 +97,42 @@ def register_trabajador_labor():
         return redirect(url_for('index'))
     return render_template('trabajador_labores.html')
 
+# Ruta para consultar registros trabajador-labor
+@app.route('/consultar_trabajador_labor', methods=('GET', 'POST'))
+def consultar_trabajador_labor():
+    registros = []
+    if request.method == 'POST':
+        fecha = request.form.get('fecha')
+        id_trabajador = request.form.get('id_trabajador')
+        id_labor = request.form.get('id_labor')
+
+        query = '''
+            SELECT tl.fecha, t.nombres, t.apellidos, l.finca, l.lote, tl.cantidad 
+            FROM Trabajador_labores tl
+            JOIN Trabajadores t ON tl.id_trabajador = t.cedula
+            JOIN Labores l ON tl.id_labor = l.identificador
+            WHERE 1=1
+        '''
+        params = []
+
+        if fecha:
+            query += ' AND tl.fecha = %s'
+            params.append(fecha)
+        if id_trabajador:
+            query += ' AND tl.id_trabajador = %s'
+            params.append(id_trabajador)
+        if id_labor:
+            query += ' AND tl.id_labor = %s'
+            params.append(id_labor)
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        registros = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+    return render_template('consultar_trabajador_labores.html', registros=registros)
+
 if __name__ == '__main__':
     app.run(debug=True)
