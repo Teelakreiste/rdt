@@ -134,5 +134,40 @@ def consultar_trabajador_labor():
 
     return render_template('consultar_trabajador_labores.html', registros=registros)
 
+# Ruta para consultar registros trabajador-labor en un rango de fechas
+@app.route('/consultar_trabajador_labor_rango', methods=('GET', 'POST'))
+def consultar_trabajador_labor_rango():
+    registros = []
+    if request.method == 'POST':
+        fecha_inicio = request.form.get('fecha_inicio')
+        fecha_fin = request.form.get('fecha_fin')
+        id_trabajador = request.form.get('id_trabajador')
+        id_labor = request.form.get('id_labor')
+
+        query = '''
+            SELECT tl.fecha, t.nombres, t.apellidos, l.finca, l.lote, tl.cantidad, l.valor, (tl.cantidad * l.valor) as total 
+            FROM Trabajador_labores tl
+            JOIN Trabajadores t ON tl.id_trabajador = t.cedula
+            JOIN Labores l ON tl.id_labor = l.identificador
+            WHERE tl.fecha BETWEEN %s AND %s
+        '''
+        params = [fecha_inicio, fecha_fin]
+
+        if id_trabajador:
+            query += ' AND tl.id_trabajador = %s'
+            params.append(id_trabajador)
+        if id_labor:
+            query += ' AND tl.id_labor = %s'
+            params.append(id_labor)
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        registros = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+    return render_template('consultar_trabajador_labores_rango.html', registros=registros)
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,18 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Consultar Trabajador-Labor</title>
+    <title>Consultar Trabajador-Labor (Rango de Fechas)</title>
 </head>
 <body>
     <div class="container mt-5">
         <div>
             <a href="{{ url_for('index') }}">&lt; Regresar</a>
         </div>
-        <h1 class="text-center">Consultar Trabajador-Labor</h1>
+        <h1 class="text-center">Consultar Trabajador-Labor (Rango de Fechas)</h1>
         <form method="post">
             <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha">
+                <label for="fecha_inicio">Fecha Inicio:</label>
+                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_fin">Fecha Fin:</label>
+                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
             </div>
             <div class="form-group">
                 <label for="id_trabajador">ID Trabajador:</label>
@@ -39,6 +43,8 @@
                     <th>Finca</th>
                     <th>Lote</th>
                     <th>Cantidad</th>
+                    <th>Valor</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +56,8 @@
                     <td>{{ registro[3] }}</td>
                     <td>{{ registro[4] }}</td>
                     <td>{{ registro[5] }}</td>
+                    <td>{{ registro[6] }}</td>
+                    <td>{{ registro[7] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
